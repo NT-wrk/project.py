@@ -67,7 +67,7 @@ def save_as_csv(df, df2):
     df2 = mock_users()
     final_file = pd.concat([df, df2], ignore_index=True)
     csv_buffer = StringIO()
-    final_file.to_csv(csv_buffer, index=False, header=False)
+    final_file.to_csv(csv_buffer, sep=';', index=False, header=False)
     csv_data = csv_buffer.getvalue()
 
     # download button to download results

@@ -13,8 +13,8 @@ def create_interface():
 
 def mock_users():
     # create mock users and append them later
-    df2 = pd.DataFrame({
-    "Student - Person: Nachname": ["user0"] * 9,
+   df2 = pd.DataFrame({
+    "Student - Person: Nachname": [prefix + "_" + "user0"] * 9,
     "Student - Person: Vorname": [str(i) for i in range(1, 10)]})
     return df2
 

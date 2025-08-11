@@ -38,6 +38,7 @@ def process_dataframe(df, prefix):
     # add prefix and remove umlaut
     df["Student - Person: Nachname"] = prefix + "_" + df["Student - Person: Nachname"].astype(str)
     df["Student - Person: Nachname"] = df["Student - Person: Nachname"].apply(remove_umlaut)
+    df["Student - Person: Vorname"] = df["Student - Person: Vorname"].apply(remove_umlaut)
     return df
 
 

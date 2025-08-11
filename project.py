@@ -11,7 +11,7 @@ def create_interface():
     uploaded_file = st.file_uploader("Wählen Sie die Excel Datei aus", type="xlsx")
     return uploaded_file, prefix
 
-def mock_users():
+def mock_users(prefix):
     # create mock users and append them later
    df2 = pd.DataFrame({
     "Student - Person: Nachname": [prefix + "_" + "user0"] * 9,
@@ -88,7 +88,7 @@ def main():
         if processed_df is not None:
             st.write("Usernamen wurden erfolgreich generiert.")
             st.dataframe(processed_df)
-            df2 = mock_users()
+            df2 = mock_users(prefix)
             save_as_csv(processed_df, df2)
 
     # no data inform user

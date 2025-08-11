@@ -64,7 +64,7 @@ def remove_umlaut(text):
 
 def save_as_csv(df, df2):
     # convert file - remove headers
-    df2 = mock_users()
+    df2 = mock_users(prefix)
     final_file = pd.concat([df, df2], ignore_index=True)
     csv_buffer = StringIO()
     final_file.to_csv(csv_buffer, sep=';', index=False, header=False)

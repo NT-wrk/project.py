@@ -3,20 +3,22 @@ import re
 import pandas as pd
 from io import StringIO
 
-    
 UMLAUT_MAPPING = {
-        # o variants
-        "ö": "oe", "œ": "oe",
-        "ó": "o", "ò": "o", "ô": "o", "õ": "o", "ō": "o", "ø": "o", "ǒ": "o", "ȯ": "o",
-        "Ö": "OE", "Œ": "OE",
-        "Ó": "O", "Ò": "O", "Ô": "O", "Õ": "O", "Ō": "O", "Ø": "O", "Ǒ": "O", "Ȯ": "O",
-        # a variants
-        "á": "a", "à": "a", "â": "a", "ã": "a", "ä": "a", "ā": "a", "å": "a", "ą": "a", "ǎ": "a", "ȧ": "a",
-        "Á": "A", "À": "A", "Â": "A", "Ã": "A", "Ä": "A", "Ā": "A", "Å": "A", "Ą": "A", "Ǎ": "A", "Ȧ": "A",
-        # u variants
-        "ú": "u", "ù": "u", "û": "u", "ü": "u", "ū": "u", "ů": "u", "ǔ": "u",
-        "Ú": "U", "Ù": "U", "Û": "U", "Ü": "U", "Ū": "U", "Ů": "U", "Ǔ": "U",
-    }
+    # o / oe
+    "ö": "oe", "œ": "oe", "ó": "o", "ò": "o", "ô": "o", "õ": "o", "ō": "o", "ø": "o", "ǒ": "o", "ȯ": "o",
+    "Ö": "Oe", "Œ": "Oe", "Ó": "O", "Ò": "O", "Ô": "O", "Õ": "O", "Ō": "O", "Ø": "O", "Ǒ": "O", "Ȯ": "O",
+    # a
+    "á": "a", "à": "a", "â": "a", "ã": "a", "ä": "ae", "ā": "a", "å": "a", "ą": "a", "ǎ": "a", "ȧ": "a",
+    "Á": "A", "À": "A", "Â": "A", "Ã": "A", "Ä": "Ae", "Ā": "A", "Å": "A", "Ą": "A", "Ǎ": "A", "Ȧ": "A",
+    # u
+    "ú": "u", "ù": "u", "û": "u", "ü": "ue", "ū": "u", "ů": "u", "ǔ": "u",
+    "Ú": "U", "Ù": "U", "Û": "U", "Ü": "Ue", "Ū": "U", "Ů": "U", "Ǔ": "U",
+    # e
+    "é": "e", "è": "e", "ê": "e", "ë": "e", "ē": "e", "ė": "e", "ę": "e",
+    "É": "E", "È": "E", "Ê": "E", "Ë": "E", "Ē": "E", "Ė": "E", "Ę": "E",
+}
+
+UMLAUT_PATTERN = "[" + "".join(re.escape(ch) for ch in UMLAUT_MAPPING.keys()) + "]"
 
 def create_user_interface():
     # this function creates the user interface -> upload file and prefix
@@ -63,11 +65,7 @@ def process_dataframe(df, prefix):
 
 def remove_umlaut(text: str) -> str:
         # this function maps out umlaut - use regex to identify them and removes them
-    return re.sub(
-        r"[öœóòôõōøǒȯáàâãäāåąǎȧúùûüūůǔȯÖŒÓÒÔÕŌØǑȮÁÀÂÃÄĀÅĄǍȦÚÙÛÜŪŮǓȮ]",
-        lambda m: UMLAUT_MAPPING.get(m.group(), m.group()),
-        text
-    )
+    return re.sub(UMLAUT_PATTERN, lambda m: UMLAUT_MAPPING[m.group()], text)
 
 def save_as_csv(df, df2):
     # this function concatenates the mock users and the real users + converts file to a csv 

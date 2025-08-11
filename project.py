@@ -88,7 +88,8 @@ def main():
         if processed_df is not None:
             st.write("Usernamen wurden erfolgreich generiert.")
             st.dataframe(processed_df)
-            save_as_csv(processed_df)
+            df2 = mock_users()
+            save_as_csv(processed_df, df2)
 
     # no data inform user
     else:

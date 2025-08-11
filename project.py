@@ -89,7 +89,7 @@ def main():
             st.write("Usernamen wurden erfolgreich generiert.")
             st.dataframe(processed_df)
             df2 = mock_users(prefix)
-            save_as_csv(processed_df, df2)
+            save_as_csv(processed_df, df2, prefix)
 
     # no data inform user
     else:
